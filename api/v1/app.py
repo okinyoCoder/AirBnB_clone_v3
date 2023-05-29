@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """script that intializes app.py"""
 
-from flask import Flask
+from flask import Flask, abort
 from models import storage
 from os import getenv
 from flask import make_response, jsonify
@@ -16,6 +16,11 @@ app.register_blueprint(app_views)
 def close_db(self):
     """function that closes storage"""
     storage.close()
+
+
+@app.errorhandler(404)
+def error404(e):
+    return jsonify({"error": "Not found"})
 
 
 if __name__ == "__main__":
