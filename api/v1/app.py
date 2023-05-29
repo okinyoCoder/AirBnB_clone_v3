@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """script that intializes app.py"""
 
-from flask import Flask, abort
+from flask import Flask, make_response
 from models import storage
 from os import getenv
 from flask import make_response, jsonify
@@ -19,8 +19,8 @@ def close_db(self):
 
 
 @app.errorhandler(404)
-def error404(e):
-    return jsonify({"error": "Not found"})
+def not_found(error):
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == "__main__":
